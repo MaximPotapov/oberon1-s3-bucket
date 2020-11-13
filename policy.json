@@ -1,0 +1,61 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AWSConfigBucketPermissionsCheck",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+         "config.amazonaws.com"
+        ]
+      },
+      "Action": "s3:GetBucketAcl",
+      "Resource": "arn:aws:s3:::oberon1-bucket"
+    },
+    {
+      "Sid": "AWSConfigBucketExistenceCheck",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "config.amazonaws.com"
+        ]
+      },
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::oberon1-bucket"
+    },
+    {
+      "Sid": "AWSConfigBucketDelivery",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+         "config.amazonaws.com"
+        ]
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::oberon1-bucket/AWSLogs/207896869126/Config/*",
+      "Condition": {
+        "StringEquals": {
+          "s3:x-amz-acl": "bucket-owner-full-control"
+        }
+      }
+    },
+    {
+      "Sid":"AddPerm",
+      "Effect":"Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource":["arn:aws:s3:::oberon1-bucket"]
+    },
+    {
+      "Sid": "IPAllow",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": ["arn:aws:s3:::oberon1-bucket/index.html",
+                "arn:aws:s3:::oberon1-bucket/error.html"],
+      "Condition": {
+          "NotIpAddress": {"aws:SourceIp": "50.31.252.0/24"}
+    }
+  ]
+}
+

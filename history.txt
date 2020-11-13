@@ -1,0 +1,10 @@
+    
+
+  485  aws s3api create-bucket --bucket oberon1-bucket --region us-east-2  --create-bucket-configuration LocationConstraint=us-east-2 
+  504  aws s3api put-bucket-policy --bucket oberon1-bucket --policy file:///Users/mpotapov/Desktop/oberon1-bucket/policy.json
+  505  aws s3 sync /Users/mpotapov/Desktop/oberon1-bucket s3://oberon1-bucket/
+  506   aws s3 website s3://$BUCKET_NAME/ --index-document index.html --error-document error.html
+  507   aws s3 website s3://oberon1-bucket/ --index-document index.html --error-document error.html
+  508  aws s3 sync /Users/mpotapov/Desktop/oberon1-bucket s3://oberon1-bucket/
+  509  aws s3 sync /Users/mpotapov/Desktop/oberon1-bucket s3://oberon1-bucket/
+  510  aws s3 sync /Users/mpotapov/Desktop/oberon1-bucket s3://oberon1-bucket/
